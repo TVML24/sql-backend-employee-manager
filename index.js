@@ -130,7 +130,7 @@ async function addEmp() {
     const departments = await getdepData();
     const roles = await getroleData();
     const managers = await getmanData();
-    console.log(roles);
+    // console.log(roles);
     inquirer
         .prompt([
             {
@@ -177,7 +177,6 @@ async function addEmp() {
 
 async function removeEmp() {
     const employees = await getempData();
-    console.log(employees);
     inquirer
         .prompt([
             {
@@ -376,7 +375,7 @@ async function getroleData() {
 }
 
 async function getmanData() {
-    const sql = `select first_name, id from employee where manager_id is NULL;`;
+    const sql = `select first_name, last_name, id from employee where manager_id is NULL;`;
     const thisGet = await query(sql);
     var holderArray = [];
     for (var i = 0; i < thisGet.length; i++) {
