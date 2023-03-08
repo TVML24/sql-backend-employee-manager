@@ -10,4 +10,9 @@ use employees_db;
 
 -- select r.id, r.title, r.salary from role AS r;
 
-select * from department;
+-- select * from department;
+
+-- select first_name from employee
+-- where manager_id is NULL
+
+DELETE FROM employee WHERE id is 15;
