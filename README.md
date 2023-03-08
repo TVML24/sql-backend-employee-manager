@@ -31,8 +31,8 @@ Screenshot:
 
 ## Deployment
 
-The deployed application on Heroku:
-(https://arcane-caverns-11310.herokuapp.com/)
+The video demonstration of the application:
+(https://drive.google.com/file/d/1koJzPgQXEp6rfDZqhS8posOtOIwuoqyE/view)
 
 ## Credits
 
