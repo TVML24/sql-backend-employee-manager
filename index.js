@@ -412,39 +412,23 @@ async function viewExp() {
     ])
     .then((response) => {
         const dataPass = response.whichDep;
-        console.log(response);
         calcRole(dataPass);
     })
 }
 
-async function getempSalary() {
-    const sql = `SELECT role_id FROM employee;`
-    const thisGet = await query(sql);
-    var roleArray = [];
-    for (var i = 0; i < thisGet.length; i++) {
-        var val = thisGet[i].role_id;
-        roleArray.push(val)
-    }
-    return roleArray;
-}
 
 async function calcRole(dataPass) {
-    const sql = `SELECT id, salary FROM role WHERE department_id=?;`
-    const thisGet = await query(sql, [dataPass]);
-    const gettheroleIds = await getempSalary();
-    const calcSum = gettheroleIds.map(role => {
-        var totalMoney = 0;
-        for (var i = 0; i < thisGet.length; i++) {
-            if (role = thisGet[i].id) {
-                newNum = parseInt(thisGet[i].salary);
-                totalMoney += newNum;
-            } else {
-                return;
-            }
-        }
-        return totalMoney;
-    })
-    console.log("Total Departmental Spending is: " + calcSum[0]);
+    const sql = `SELECT d.dep_name AS department, d.id AS department_id, SUM(r.salary) AS departmental_salary
+    FROM employee AS e 
+    LEFT JOIN role AS r ON e.role_id = r.id
+    LEFT JOIN department AS d ON r.department_id = d.id
+    LEFT JOIN employee AS m ON e.manager_id = m.id
+    GROUP BY d.id;`
+    const thisGet = await query(sql);
+    if (dataPass >= 1) {
+        dataPass -= 1;
+    }
+    console.log("The total departmental salary for that Department is $" + thisGet[dataPass].departmental_salary);
     loadMenu();
 }
 
